@@ -124,63 +124,91 @@ namespace ZXing.OneD
             toReturn[i] = temp == 0 ? 1 : 2;
          }
       }
-
       private static String tryToConvertToExtendedMode(String contents)
       {
          var extendedContent = new StringBuilder();
-			foreach (char character in contents)
-			{
-				var asciiValue = (int)character;
-				switch (asciiValue)
-				{
-					case 0:
-						extendedContent.Append("%U");
-						break;
-					case 32:
-						extendedContent.Append(" ");
-						break;
-					case 47:
-						extendedContent.Append("/O");
-						break;
-					case 58:
-						extendedContent.Append("/Z");
-						break;
-					case 64:
-						extendedContent.Append("%V");
-						break;
-					case 96:
-						extendedContent.Append("%W");
-						break;
-					case 127:
-						extendedContent.Append("%T");
-						break;
-					default:
-						if (48 <= asciiValue && asciiValue <= 57)  // numbers
-							extendedContent.Append(character);
-						else if (65 <= asciiValue && asciiValue <= 90) // upper letters
-							extendedContent.Append(character);
-						else if (97 <= asciiValue && asciiValue <= 122) // lower letters
-							extendedContent.Append("+" + (char)(asciiValue - 32));						
-						else if (33 <= asciiValue && asciiValue <= 44) // special characters
-							extendedContent.Append("/" + (char)(asciiValue + 32));
+         foreach (char character in contents)
+         {
+            var asciiValue = (int)character;
+            switch (asciiValue)
+            {
+               case 0:
+                  extendedContent.Append("%U");
+                  break;
+               case 32:
+                  extendedContent.Append(" ");
+                  break;
+               case 47:
+                  extendedContent.Append("/O");
+                  break;
+               case 58:
+                  extendedContent.Append("/Z");
+                  break;
+               case 64:
+                  extendedContent.Append("%V");
+                  break;
+               case 96:
+                  extendedContent.Append("%W");
+                  break;
+               case 127:
+                  extendedContent.Append("%T");
+                  break;
+               default:
+                  if (48 <= asciiValue && asciiValue <= 57)  // numbers
+		  {
+                     extendedContent.Append(character);
+	          }
+                  else if (65 <= asciiValue && asciiValue <= 90) // upper letters
+                  {
+		     extendedContent.Append(character);
+		  }
+                  else if (97 <= asciiValue && asciiValue <= 122) // lower letters
+                  {
+                     extendedContent.Append("+");
+                     extendedContent.Append((char)(asciiValue - 32));
+                  }
+                  else if (33 <= asciiValue && asciiValue <= 44) // special characters
+                  {
+                     extendedContent.Append("/");
+                     extendedContent.Append((char)(asciiValue + 32));
+                  }
                   else if (45 <= asciiValue && asciiValue <= 46) // special characters
-							extendedContent.Append(character);
-						else if (59 <= asciiValue && asciiValue <= 63) // special characters
-							extendedContent.Append("%" + (char)(asciiValue + 11));
-						else if (91 <= asciiValue && asciiValue <= 95) // special characters
-							extendedContent.Append("%" + (char)(asciiValue - 16));
-						else if (123 <= asciiValue && asciiValue <= 126) // special characters
-							extendedContent.Append("%" + (char)(asciiValue - 43));
-						else if (1 <= asciiValue && asciiValue <= 26) // special keys
-							extendedContent.Append("$" + (char)(asciiValue + 64));
-						else if (27 <= asciiValue && asciiValue <= 31) // special keys
-							extendedContent.Append("%" + (char)(asciiValue + 38));
-						else
-							return null;
-						break;
-				}		
-			}
-			return extendedContent.ToString();
+		  {
+                     extendedContent.Append(character);
+		  }
+                  else if (59 <= asciiValue && asciiValue <= 63) // special characters
+                  { 
+                     extendedContent.Append("%");
+                     extendedContent.Append((char)(asciiValue + 11));
+                  }
+                  else if (91 <= asciiValue && asciiValue <= 95) // special characters
+                  {
+                     extendedContent.Append("%");
+                     extendedContent.Append((char)(asciiValue - 16));
+                  }
+                  else if (123 <= asciiValue && asciiValue <= 126) // special characters
+                  {
+                     extendedContent.Append("%");
+                     extendedContent.Append((char)(asciiValue - 43));
+                  }
+                  else if (1 <= asciiValue && asciiValue <= 26) // special keys
+                  {
+                     extendedContent.Append("$"); 
+                     extendedContent.Append((char)(asciiValue + 64));
+                  }
+                  else if (27 <= asciiValue && asciiValue <= 31) // special keys
+                  {
+                     extendedContent.Append("%");
+                     extendedContent.Append((char)(asciiValue + 38));
+                  }
+                  else
+		  {
+                     return null;
+		  }
+                  break;
+            }
+         }
+         return extendedContent.ToString();
       }
    }
 }
