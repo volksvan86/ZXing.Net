@@ -155,13 +155,13 @@ namespace ZXing.OneD
                   break;
                default:
                   if (48 <= asciiValue && asciiValue <= 57)  // numbers
-		  {
+                  {
                      extendedContent.Append(character);
-	          }
+                  }
                   else if (65 <= asciiValue && asciiValue <= 90) // upper letters
                   {
-		     extendedContent.Append(character);
-		  }
+                     extendedContent.Append(character);
+                  }
                   else if (97 <= asciiValue && asciiValue <= 122) // lower letters
                   {
                      extendedContent.Append("+");
@@ -173,9 +173,9 @@ namespace ZXing.OneD
                      extendedContent.Append((char)(asciiValue + 32));
                   }
                   else if (45 <= asciiValue && asciiValue <= 46) // special characters
-		  {
+                  {
                      extendedContent.Append(character);
-		  }
+                  }
                   else if (59 <= asciiValue && asciiValue <= 63) // special characters
                   { 
                      extendedContent.Append("%");
@@ -202,9 +202,9 @@ namespace ZXing.OneD
                      extendedContent.Append((char)(asciiValue + 38));
                   }
                   else
-		  {
+                  {
                      return null;
-		  }
+                  }
                   break;
             }
          }
